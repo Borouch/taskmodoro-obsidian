@@ -1,13 +1,13 @@
 export interface ISettings {
-    TasksDir: string;
-    RootTasksTags: string;
+  TasksDir: string;
+  RootTasksTags: string;
 }
 
 const defaultSettings: ISettings = {
-    TasksDir: 'tasks',
-    RootTasksTags: '',
+  TasksDir: 'tasks',
+  RootTasksTags: '',
 };
 
 export const settingsWithDefaults = (
-    settings: Partial<ISettings>,
+  settings: Partial<ISettings>,
 ): ISettings => ({ ...defaultSettings, ...settings });

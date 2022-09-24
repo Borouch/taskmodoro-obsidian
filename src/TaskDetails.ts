@@ -20,8 +20,8 @@ export class TaskDetails {
     public pomodoroLenght = moment.duration(30, 'minutes');
     public overallWorktime = moment.duration(0, 'seconds');
     public dailyWorktime = moment.duration(0, 'seconds');
-    public dailyScheduledWorktime: Duration = null;
-    public estWorktime: Duration = null;
+    public dailyScheduledWorktime: Duration | null = null;
+    public estWorktime: Duration | null = null;
     public subtasks: TaskDetails[] = [];
     public parents: FileName[] = [];
 
@@ -88,7 +88,7 @@ export class TaskDetails {
                 this.subtasks.push(subtd);
             }
 
-            this.parents = task.parents;
+            this.parents = task.parents ? task.parents : [];
         }
     }
 

@@ -1,5 +1,4 @@
 {
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "editor.formatOnPaste": false, // required
   "editor.formatOnType": false, // required
   "editor.formatOnSave": true, // optional
