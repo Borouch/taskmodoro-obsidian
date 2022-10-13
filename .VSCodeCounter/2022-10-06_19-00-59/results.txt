@@ -1,0 +1,156 @@
+Date : 2022-10-06 19:00:59
+Directory : c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian
+Total : 107 files,  26429 codes, 1144 comments, 1371 blanks, all 28944 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          4 |     18,551 |         14 |          3 |     18,568 |
+| TypeScript         |         64 |      4,688 |      1,095 |        867 |      6,650 |
+| Svelte             |         28 |      2,801 |          7 |        414 |      3,222 |
+| Markdown           |          3 |        113 |          2 |         53 |        168 |
+| JavaScript         |          3 |         94 |          0 |          6 |        100 |
+| YAML               |          3 |         91 |          2 |         15 |        108 |
+| CSS                |          1 |         87 |          1 |         13 |        101 |
+| JSON with Comments |          1 |          4 |         23 |          0 |         27 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                            |        107 |     26,429 |      1,144 |      1,371 |     28,944 |
+| .github                                                                                                                      |          5 |        131 |          2 |         30 |        163 |
+| .github\ISSUE_TEMPLATE                                                                                                       |          2 |         40 |          0 |         15 |         55 |
+| .github\workflows                                                                                                            |          2 |         91 |          2 |         14 |        107 |
+| src                                                                                                                          |         90 |      7,275 |      1,101 |      1,273 |      9,649 |
+| src\Editor                                                                                                                   |          4 |      1,204 |         90 |        232 |      1,526 |
+| src\Enums                                                                                                                    |          3 |         28 |          0 |          5 |         33 |
+| src\Helpers                                                                                                                  |          5 |        343 |          7 |         43 |        393 |
+| src\Query                                                                                                                    |         30 |        940 |        663 |        196 |      1,799 |
+| src\Query\Filter                                                                                                             |         21 |        664 |        269 |        116 |      1,049 |
+| src\Stores                                                                                                                   |          4 |        169 |         24 |         62 |        255 |
+| src\UI                                                                                                                       |         28 |      2,801 |          7 |        414 |      3,222 |
+| src\UI\Pickers                                                                                                               |          5 |        513 |          3 |         75 |        591 |
+| src\UI\Pickers\DurationPicker                                                                                                |          2 |        255 |          2 |         38 |        295 |
+| src\UI\SidebarTimer                                                                                                          |          4 |        370 |          0 |         52 |        422 |
+| src\UI\TaskDetails                                                                                                           |          6 |        693 |          2 |         98 |        793 |
+| src\UI\TaskTile                                                                                                              |          4 |        633 |          0 |         90 |        723 |
+| tests                                                                                                                        |          1 |        210 |          0 |          7 |        217 |
+| types                                                                                                                        |          1 |          4 |          1 |          1 |          6 |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                     | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.eslintrc.js                                        | JavaScript         |         49 |          0 |          1 |         50 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.github\FUNDING.yml                                 | YAML               |          0 |          0 |          1 |          1 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.github\ISSUE_TEMPLATE\bug_report.md                | Markdown           |         25 |          0 |          9 |         34 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.github\ISSUE_TEMPLATE\feature_request.md           | Markdown           |         15 |          0 |          6 |         21 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.github\workflows\main.yml                          | YAML               |         19 |          1 |          5 |         25 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.github\workflows\release.yml                       | YAML               |         72 |          1 |          9 |         82 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\.prettierrc                                         | JSON               |         13 |         14 |          0 |         27 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\README.md                                           | Markdown           |         73 |          2 |         38 |        113 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\esbuild.config.mjs                                  | JavaScript         |         35 |          0 |          4 |         39 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\jest.config.js                                      | JavaScript         |         10 |          0 |          1 |         11 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\manifest.json                                       | JSON               |         11 |          0 |          1 |         12 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\package-lock.json                                   | JSON               |     18,449 |          0 |          1 |     18,450 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\package.json                                        | JSON               |         78 |          0 |          1 |         79 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Editor\Commands.ts                              | TypeScript         |        463 |          9 |         93 |        565 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Editor\EditorHelpers.ts                         | TypeScript         |        336 |         35 |         58 |        429 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Editor\InternalLink.ts                          | TypeScript         |         64 |          2 |          6 |         72 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Editor\RenderMarkdown.ts                        | TypeScript         |        341 |         44 |         75 |        460 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Enums\component-context.ts                      | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Enums\duration-picker-type.ts                   | TypeScript         |          9 |          0 |          1 |         10 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Enums\timer-state.ts                            | TypeScript         |         10 |          0 |          2 |         12 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\FileInterface.ts                                | TypeScript         |        339 |         35 |         54 |        428 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Graphics.ts                                     | TypeScript         |        124 |          0 |         19 |        143 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Helpers\Constants.ts                            | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Helpers\Cursor.ts                               | TypeScript         |        102 |          7 |         14 |        123 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Helpers\Helpers.ts                              | TypeScript         |         37 |          0 |          7 |         44 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Helpers\Render.ts                               | TypeScript         |         37 |          0 |          8 |         45 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Helpers\ShowPickers.ts                          | TypeScript         |        166 |          0 |         13 |        179 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\IQuery.ts                                       | TypeScript         |          9 |         50 |          7 |         66 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Modals.ts                                       | TypeScript         |        136 |          0 |         19 |        155 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Parser.ts                                       | TypeScript         |        147 |         21 |         27 |        195 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Props.ts                                        | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query.ts                                        | TypeScript         |        125 |         80 |         25 |        230 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\QueryRenderChild.ts                             | TypeScript         |         20 |          0 |          2 |         22 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\DateParser.ts                             | TypeScript         |         15 |          2 |          2 |         19 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\FilterParser.ts                           | TypeScript         |         36 |          7 |          4 |         47 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\BooleanField.ts                    | TypeScript         |        116 |         48 |          8 |        172 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\CompletedField.ts                  | TypeScript         |         12 |          1 |          4 |         17 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\DateField.ts                       | TypeScript         |         68 |         18 |          9 |         95 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\DescriptionField.ts                | TypeScript         |         16 |         17 |          5 |         38 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\DoneDateField.ts                   | TypeScript         |         18 |          4 |          3 |         25 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\DueDateField.ts                    | TypeScript         |         18 |          4 |          3 |         25 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\ExcludeSubItemsField.ts            | TypeScript         |         13 |          4 |          4 |         21 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\Field.ts                           | TypeScript         |         29 |         52 |          7 |         88 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\Filter.ts                          | TypeScript         |          6 |         18 |          3 |         27 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\FilterInstruction.ts               | TypeScript         |         22 |         16 |          7 |         45 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\FilterInstructions.ts              | TypeScript         |         28 |         10 |          6 |         44 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\FilterInstructionsBasedField.ts    | TypeScript         |         15 |          7 |          5 |         27 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\HappensDateField.ts                | TypeScript         |         79 |         15 |         11 |        105 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\HeadingField.ts                    | TypeScript         |         19 |          9 |          5 |         33 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\PathField.ts                       | TypeScript         |         15 |         12 |          5 |         32 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\PriorityField.ts                   | TypeScript         |         58 |          1 |          9 |         68 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\RecurringField.ts                  | TypeScript         |         14 |          1 |          3 |         18 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\ScheduledDateField.ts              | TypeScript         |         19 |          4 |          3 |         26 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\StartDateField.ts                  | TypeScript         |         18 |          5 |          3 |         26 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\TagsField.ts                       | TypeScript         |         40 |         12 |          7 |         59 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Filter\TextField.ts                       | TypeScript         |         41 |         11 |          6 |         58 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\Group.ts                                  | TypeScript         |         65 |        108 |         25 |        198 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\GroupHeading.ts                           | TypeScript         |          8 |         17 |          4 |         29 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\GroupHeadings.ts                          | TypeScript         |         26 |         87 |          7 |        120 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\GroupingTreeNode.ts                       | TypeScript         |         21 |         15 |          6 |         42 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\IntermediateTaskGroups.ts                 | TypeScript         |         48 |         57 |         11 |        116 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\TaskGroup.ts                              | TypeScript         |         16 |         71 |         10 |         97 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Query\TaskGroups.ts                             | TypeScript         |         41 |         30 |         11 |         82 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Repeat.ts                                       | TypeScript         |        174 |         19 |         43 |        236 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Settings.ts                                     | TypeScript         |         11 |          0 |          3 |         14 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Sort.ts                                         | TypeScript         |        180 |         50 |         31 |        261 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Stores\PomodoroSession.ts                       | TypeScript         |         15 |          1 |          3 |         19 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Stores\SubtasksExpansionRecord.ts               | TypeScript         |          9 |          0 |          1 |         10 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Stores\TaskCache.ts                             | TypeScript         |        135 |         23 |         54 |        212 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Stores\TaskNavigationRecord.ts                  | TypeScript         |         10 |          0 |          4 |         14 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\Suggest.ts                                      | TypeScript         |        192 |         19 |         39 |        250 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\TaskDetails.ts                                  | TypeScript         |        111 |          2 |         15 |        128 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\TimerTaskView.ts                                | TypeScript         |         30 |          0 |          6 |         36 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\ButtonGroup.svelte                           | Svelte             |         66 |          0 |         10 |         76 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Checkbox.svelte                              | Svelte             |         78 |          0 |         13 |         91 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Editor.svelte                                | Svelte             |         82 |          0 |         11 |         93 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\MarkdownEditor.svelte                        | Svelte             |        142 |          2 |         22 |        166 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Pickers\DuePicker.svelte                     | Svelte             |         17 |          0 |          4 |         21 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Pickers\DurationPicker\DurationPicker.svelte | Svelte             |        118 |          1 |         16 |        135 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Pickers\DurationPicker\Switcher.svelte       | Svelte             |        137 |          1 |         22 |        160 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Pickers\RepeatPicker.svelte                  | Svelte             |        162 |          1 |         24 |        187 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\Pickers\WeekDaysOfMonthSelector.svelte       | Svelte             |         79 |          0 |          9 |         88 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\QueryTasksList.svelte                        | Svelte             |         46 |          0 |         10 |         56 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\SidebarTimer\PomodoroSessionProgress.svelte  | Svelte             |         53 |          0 |          8 |         61 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\SidebarTimer\SidebarTimerTaskView.svelte     | Svelte             |         35 |          0 |          4 |         39 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\SidebarTimer\Timer.svelte                    | Svelte             |         91 |          0 |         13 |        104 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\SidebarTimer\TimerView.svelte                | Svelte             |        191 |          0 |         27 |        218 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsMainPanel.svelte      | Svelte             |        148 |          0 |         20 |        168 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsNavigation.svelte     | Svelte             |         61 |          0 |         12 |         73 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsSidebar.svelte        | Svelte             |        222 |          0 |         30 |        252 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsSidebarProp.svelte    | Svelte             |         94 |          0 |         13 |        107 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsSubtaskSection.svelte | Svelte             |        132 |          0 |         15 |        147 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskDetails\TaskDetailsUI.svelte             | Svelte             |         36 |          2 |          8 |         46 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskPriorityStripe.svelte                    | Svelte             |         29 |          0 |          7 |         36 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskTile\SubtasksExpansionBtn.svelte         | Svelte             |         52 |          0 |          7 |         59 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskTile\TaskTile.svelte                     | Svelte             |        289 |          0 |         46 |        335 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskTile\TaskTileProps.svelte                | Svelte             |        208 |          0 |         27 |        235 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TaskTile\TrailingMenu.svelte                 | Svelte             |         84 |          0 |         10 |         94 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TextSuggest.svelte                           | Svelte             |         72 |          0 |         10 |         82 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\TimerOpenBtn.svelte                          | Svelte             |         39 |          0 |          9 |         48 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\UI\ViewSourceBtn.svelte                         | Svelte             |         38 |          0 |          7 |         45 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\main.ts                                         | TypeScript         |        188 |         34 |         30 |        252 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\src\timer.worker.ts                                 | TypeScript         |          3 |          0 |          0 |          3 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\styles.css                                          | CSS                |         87 |          1 |         13 |        101 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\tests\state.test.ts                                 | TypeScript         |        210 |          0 |          7 |        217 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\tsconfig.json                                       | JSON with Comments |          4 |         23 |          0 |         27 |
+| c:\Users\tukam\Desktop\Development\.obsidian\plugins\taskmodoro-obsidian\types\asset.d.ts                                    | TypeScript         |          4 |          1 |          1 |          6 |
+| Total                                                                                                                        |                    |     26,429 |      1,144 |      1,371 |     28,944 |
++------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

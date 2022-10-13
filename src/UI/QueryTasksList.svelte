@@ -4,18 +4,23 @@
   import { TaskListTileParent } from '../Enums/component-context';
   import { TaskDetails } from '../TaskDetails';
   import type { Query } from '../Query';
-  import { onDestroy, onMount } from 'svelte';
+  import { onDestroy } from 'svelte';
   import type { TaskGroup } from '../Query/TaskGroup';
-
+  import { statusCtxMenuAbsPos } from './../Stores/StatusContextMenu';
+  import { checkMark ,close} from '../Graphics';
+  import MenuItem from './MenuItem.svelte';
   export let plugin: TQPlugin;
-
   export let query: Query;
+  let queryTaskListEl: HTMLDivElement;
 
   const getHeading = (level: number, name: string) => {
     level = level + 4;
     level = level > 6 ? 6 : level;
     return `<h${level}>${name}</h${level}>`;
   };
+
+  let statusCtxMenuRelPos: { x: Number; y: Number };
+  let showCtxMenu = false;
 
   let taskGroups: TaskGroup[] = [];
 
@@ -25,18 +30,31 @@
   // In tasksCache store we trigger reactivity first by assigning new value to key
   // And then by returning that modified object in update callback, hence two times.
 
-  const unsubscribe = plugin.taskCache.tasks.subscribe((tasksCache) => {
+  const unsubscribeTasksCache = plugin.taskCache.tasks.subscribe((tasksCache) => {
     const tasks = Object.keys(tasksCache).map((key) => tasksCache[key]);
     taskGroups = query.applyQueryToTasks(tasks).groups;
   });
 
+  statusCtxMenuAbsPos.subscribe((absPos: { x: number; y: number } | null) => {
+    console.log({ absPos });
+    if (absPos && queryTaskListEl) {
+      var rect = queryTaskListEl.getBoundingClientRect();
+      const xRel = absPos.x - rect.left - 10;
+      const yRel = absPos.y - rect.top + 15;
+      statusCtxMenuRelPos = { x: xRel, y: yRel };
+      showCtxMenu = true;
+    } else {
+      showCtxMenu = false;
+    }
+  });
+
   onDestroy(() => {
-    unsubscribe();
+    unsubscribeTasksCache();
   });
 </script>
 
 <div class="taskmodoro">
-  <div class="query-tasks-list">
+  <div bind:this={queryTaskListEl} class="query-tasks-list">
     {#each taskGroups as taskGroup (taskGroup)}
       {#each taskGroup.groupHeadings as groupHeading}
         {@html getHeading(groupHeading.nestingLevel, groupHeading.name)}
@@ -48,8 +66,31 @@
         />
       {/each}
     {/each}
+    {#if showCtxMenu}
+      <div
+        class="menu"
+        style={`top: ${statusCtxMenuRelPos.y}px; left: ${statusCtxMenuRelPos.x}px; `}
+      >
+        <MenuItem title="Completed">
+          {@html checkMark}
+        </MenuItem>
+
+        <MenuItem title="Failed">
+          {@html close}
+        </MenuItem>
+      </div>
+    {/if}
   </div>
 </div>
 
 <style>
+  .query-tasks-list {
+    position: relative;
+  }
+  .menu {
+    position: absolute;
+    /* background-color: red;
+    width: 50px;
+    height: 50px; */
+  }
 </style>

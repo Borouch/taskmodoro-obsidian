@@ -48,7 +48,7 @@ export default class TQPlugin extends Plugin {
         this.addRibbonIcon('checkbox-glyph', 'taskmodoro', () => {
             new TaskDetailsModal(this, TaskDetailsMode.Create).open();
         });
-        this.r;
+
 
         // TODO: If triggered from a daily note, use that as the due date default
         this.addCommand({

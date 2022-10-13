@@ -32,7 +32,7 @@
   --scheduled-prop:#54a8b4;
   --title: var(--text-muted);
   --secondary-action-item: var(--text-faint);
-  --check-mark-fill: var(--text-accent);
+  --status-fill: var(--text-accent);
   --checkbox-border: var(--text-faint);
   --input-border: var(--background-modifier-border);
   --placeholder: var(--text-faint);

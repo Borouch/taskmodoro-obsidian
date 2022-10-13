@@ -8,9 +8,11 @@
   };
   if (expanded) {
   }
+
+
 </script>
 
-<div on:click={onClick} class="chevron-wrapper">
+<div  on:click={onClick} class="chevron-wrapper">
   {#if showExpansionBtn}
     <div class="transition contracted {expanded ? 'expanded' : ''}">
       {@html chevronDown}

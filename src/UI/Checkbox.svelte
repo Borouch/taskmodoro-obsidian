@@ -6,6 +6,7 @@
   export let disabled = false;
   import TaskCompletionSound from '../../resources/sfx/task-completed.mp3';
   import { playMp3 } from '../Helpers/Helpers';
+  import { statusCtxMenuAbsPos } from './../Stores/StatusContextMenu';
 
   function toggle() {
     if (!disabled) {
@@ -18,11 +19,17 @@
       }
     }
   }
+  const onContextMenu = (event: MouseEvent) => {
+    $statusCtxMenuAbsPos = { x: event.clientX, y: event.clientY };
+
+    console.log({ $statusCtxMenuAbsPos });
+  };
 </script>
 
 <div
   class="checkbox-circle {disabled ? 'checkbox--disabled' : ''}"
   on:click={toggle}
+  on:contextmenu={onContextMenu}
 >
   {#if td.completed}
     <div class="check-mark-wrapper">
@@ -58,7 +65,7 @@
   }
 
   :global(.check-mark-icon) {
-    fill: var(--check-mark-fill);
+    fill: var(--status-fill);
     opacity: 0.8;
   }
 
