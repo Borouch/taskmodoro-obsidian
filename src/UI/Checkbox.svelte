@@ -1,28 +1,39 @@
 <script lang="ts">
-  import { checkMark } from '../Graphics';
+  import { TaskStatus } from './../Enums/TaskStatus.ts';
+  import { checkMark, close } from '../Graphics';
   import type { TaskDetails } from '../TaskDetails';
 
   export let td: TaskDetails;
   export let disabled = false;
   import TaskCompletionSound from '../../resources/sfx/task-completed.mp3';
   import { playMp3 } from '../Helpers/Helpers';
-  import { statusCtxMenuAbsPos } from './../Stores/StatusContextMenu';
+  import {
+    statusCtxMenuAbsPos,
+     ctxMenuTd,
+  } from './../Stores/StatusContextMenu';
+
 
   function toggle() {
     if (!disabled) {
-      if (!td.completed) {
+      if (!td.hasCompletionStatus) {
         playMp3(TaskCompletionSound);
+        td.status = 'done';
+      } else {
+        td.status = 'uncompleted';
       }
-      td.completed = !td.completed;
       if (td.file) {
-        td.plugin.taskCache.toggleChecked(td);
+        td.plugin.taskCache.toggleCompletionStatusChange(td.file,td.status);
       }
     }
   }
+
+  // $: {
+  //   td.status = $selectedCtxMenuStatus;
+  // }
+
   const onContextMenu = (event: MouseEvent) => {
     $statusCtxMenuAbsPos = { x: event.clientX, y: event.clientY };
-
-    console.log({ $statusCtxMenuAbsPos });
+    $ctxMenuTd = td;
   };
 </script>
 
@@ -31,9 +42,14 @@
   on:click={toggle}
   on:contextmenu={onContextMenu}
 >
-  {#if td.completed}
+  {#if td.status === 'done'}
     <div class="check-mark-wrapper">
       {@html checkMark}
+    </div>
+  {/if}
+  {#if td.status === 'failed'}
+    <div class="close-wrapper">
+      {@html close}
     </div>
   {/if}
 </div>
@@ -69,11 +85,26 @@
     opacity: 0.8;
   }
 
+  :global(.checkbox-circle .close-icon path) {
+    fill: var(--status-fill);
+    opacity: 0.8;
+  }
+
+  :global(.query-tasks-list .close-icon, .timer-task-container .close-icon) {
+    width: 8px;
+    height: auto;
+    stroke-width: 10%;
+  }
+
   :global(.query-tasks-list .check-mark-icon, .timer-task-container
       .check-mark-icon) {
     width: 10px;
     height: auto;
     stroke-width: 10%;
+  }
+
+  :global(.query-tasks-list .close-wrapper) {
+    margin-top: -6px;
   }
 
   :global(.query-tasks-list .checkbox-circle, .timer-task-container

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { TaskStatus } from './../Enums/TaskStatus.ts';
   import type TQPlugin from '../main';
   import TaskTile from './TaskTile/TaskTile.svelte';
   import { TaskListTileParent } from '../Enums/component-context';
@@ -6,8 +7,11 @@
   import type { Query } from '../Query';
   import { onDestroy } from 'svelte';
   import type { TaskGroup } from '../Query/TaskGroup';
-  import { statusCtxMenuAbsPos } from './../Stores/StatusContextMenu';
-  import { checkMark ,close} from '../Graphics';
+  import {
+    statusCtxMenuAbsPos,
+    ctxMenuTd,
+  } from './../Stores/StatusContextMenu';
+  import { checkMark, close } from '../Graphics';
   import MenuItem from './MenuItem.svelte';
   export let plugin: TQPlugin;
   export let query: Query;
@@ -30,9 +34,15 @@
   // In tasksCache store we trigger reactivity first by assigning new value to key
   // And then by returning that modified object in update callback, hence two times.
 
-  const unsubscribeTasksCache = plugin.taskCache.tasks.subscribe((tasksCache) => {
-    const tasks = Object.keys(tasksCache).map((key) => tasksCache[key]);
-    taskGroups = query.applyQueryToTasks(tasks).groups;
+  const unsubscribeTasksCache = plugin.taskCache.tasks.subscribe(
+    (tasksCache) => {
+      const tasks = Object.keys(tasksCache).map((key) => tasksCache[key]);
+      taskGroups = query.applyQueryToTasks(tasks).groups;
+    },
+  );
+
+  ctxMenuTd.subscribe((_td: TaskDetails) => {
+    // showCtxMenu = false
   });
 
   statusCtxMenuAbsPos.subscribe((absPos: { x: number; y: number } | null) => {
@@ -42,6 +52,7 @@
       const xRel = absPos.x - rect.left - 10;
       const yRel = absPos.y - rect.top + 15;
       statusCtxMenuRelPos = { x: xRel, y: yRel };
+      // statusCtxMenuRelPos = { x: xRel, y: yRel };
       showCtxMenu = true;
     } else {
       showCtxMenu = false;
@@ -51,6 +62,24 @@
   onDestroy(() => {
     unsubscribeTasksCache();
   });
+
+  const setStatus = (status: TaskStatus) => {
+    if ($ctxMenuTd.file) {
+      if ($ctxMenuTd.status === 'uncompleted' || status === 'uncompleted') {
+        $ctxMenuTd.plugin.taskCache.toggleCompletionStatusChange(
+          $ctxMenuTd.file,
+          status,
+        );
+      } else {
+        $ctxMenuTd.plugin.fileInterface.changeCompletedStatus(
+          $ctxMenuTd.file,
+          status,
+        );
+      }
+    }
+    $ctxMenuTd.status = status;
+    showCtxMenu = false;
+  };
 </script>
 
 <div class="taskmodoro">
@@ -71,11 +100,21 @@
         class="menu"
         style={`top: ${statusCtxMenuRelPos.y}px; left: ${statusCtxMenuRelPos.x}px; `}
       >
-        <MenuItem title="Completed">
+        <MenuItem
+          on:click={() => {
+            setStatus('done');
+          }}
+          title="Done"
+        >
           {@html checkMark}
         </MenuItem>
 
-        <MenuItem title="Failed">
+        <MenuItem
+          on:click={() => {
+            setStatus('failed');
+          }}
+          title="Failed"
+        >
           {@html close}
         </MenuItem>
       </div>
@@ -84,10 +123,17 @@
 </div>
 
 <style>
+
+
   .query-tasks-list {
     position: relative;
   }
+  :global(.main-task-panel){
+    position:relative;
+  }
+
   .menu {
+    z-index: 5;
     position: absolute;
     /* background-color: red;
     width: 50px;

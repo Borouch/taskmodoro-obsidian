@@ -2,11 +2,17 @@ import type { App, CachedMetadata, TFile } from 'obsidian';
 /* eslint-disable linebreak-style */
 import { Result, err, ok } from 'neverthrow';
 import { Writable, get, writable } from 'svelte/store';
-import { FilePath, Task, modifyFileContents } from '../FileInterface';
+import {
+  FilePath,
+  Task,
+  modifyFileContents,
+  TaskStatus,
+} from '../FileInterface';
 import { Frontmatter, Parser } from '../Parser';
 
 import type TQPlugin from '../main';
 import type { TaskDetails } from '../TaskDetails';
+import { statusStringToEnumMapper } from '../Helpers/Helpers';
 
 /**
  * TaskCache is the main interface for querying and modifying tasks. It
@@ -28,23 +34,16 @@ export class TaskCache {
 
     this.tasks = writable({});
 
-    // this.tasks.subscribe(() => {
-    //     console.log('taskCache has been updated');
-    // });
   }
 
-  /**
-   * toggleChecked will update the task file to the state represented in this
-   * task object. The task object will not be modified, though the modifiction
-   * of the file will trigger that task to be reloaded and the UI to be
-   * rerendered.
-   */
-
-  public readonly toggleChecked = async (td: TaskDetails): Promise<void> =>
-    modifyFileContents(td.file, this.app.vault, (lines): boolean => {
-      const replacer = td.completed ? /^- \[[ ]\]/ : /^- \[[xX]\]/;
-
-      const newValue = td.completed ? '- [x]' : '- [ ]';
+  public readonly toggleCompletionStatusChange = async (
+    file: TFile,
+    status: TaskStatus,
+  ): Promise<void> =>
+    modifyFileContents(file, this.app.vault, (lines): boolean => {
+      
+      const replacer = status !== 'uncompleted' ? /^- \[[ ]\]/ : /^- \[[xX]\]/;
+      const newValue = status !== 'uncompleted' ? '- [x]' : '- [ ]';
 
       // Look for the task and check status
 
@@ -53,7 +52,7 @@ export class TaskCache {
       if (taskLine < 0) {
         console.warn(
           'taskmodoro: Unable to find a task line to toggle in file ' +
-            td.file.path,
+            file.path,
         );
 
         return false;
@@ -62,15 +61,14 @@ export class TaskCache {
       lines[taskLine] = lines[taskLine].replace(replacer, newValue);
 
       // We update this here rather than waiting for the file modified handler
-
       // so that the file is only updated once, rather than twice in rapid
-
       // succession.
 
-      if (!td.completed) {
-        this.plugin.fileInterface.processUnchecked(lines);
+      if (status === 'uncompleted') {
+        // this.plugin.fileInterface.processOnUncheckedLegacy(lines);
+        this.plugin.fileInterface.processOnUnchecked(lines);
       } else {
-        this.plugin.fileInterface.processCompleted(td.file.path, lines);
+        this.plugin.fileInterface.processOnCompleted(file.path, lines, status);
       }
 
       return true;
@@ -177,7 +175,7 @@ export class TaskCache {
   ): Promise<Result<Task, string>> => {
     const metadata = this.app.metadataCache.getFileCache(file);
 
-    if (this.isTaskAbsent(metadata)) {
+    if (!metadata || this.isTaskAbsent(metadata)) {
       return err('taskmodoro: No task found in task file ' + file.path);
     }
 
@@ -190,22 +188,29 @@ export class TaskCache {
       frontmatter.get('subtasks'),
     );
     const parents = frontmatter.get('parents');
+    let status = frontmatter.get('status');
+
     const taskData = Parser.getTaskData(lines);
+
+    status = taskData.isTaskCompleted && !status ? 'done' : status;
+    status = !status ? 'uncompleted' : status;
+    // const enumStatus = statusStringToEnumMapper(status);
+
     const tags = frontmatter.get('tags');
 
     return ok({
-      file,
+      file: file,
       md: contents,
-      frontmatter,
+      frontmatter: frontmatter,
       taskName: taskData.taskName,
-      recurrence: frontmatter.get('recurrence'),
       description: Parser.getDescription(lines),
-      completed: taskData.isTaskCompleted,
+      recurrence: frontmatter.get('recurrence'),
+      status: status,
       tags: tags ? tags : [],
       due: due ? window.moment(due).endOf('day') : null,
-      scheduled: scheduled ? window.moment(scheduled).endOf('day') : undefined,
-      subtasks,
-      parents,
+      scheduled: scheduled ? window.moment(scheduled).endOf('day') : null,
+      subtasks: subtasks,
+      parents: parents,
     });
   };
 }

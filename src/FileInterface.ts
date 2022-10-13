@@ -6,14 +6,13 @@ import moment from 'moment';
 import {
   Frontmatter,
   Parser,
-  setCompletedDate,
+  setCompletedDateLegacy,
   setDueDateToNext,
+  setCompletedDate
 } from './Parser';
 
 import type TQPlugin from './main';
 import type { TaskDetails } from './TaskDetails';
-import { getTextAbv } from './Helpers/Helpers';
-import { Frontmatter } from './Parser';
 
 export interface Task {
   file: TFile;
@@ -23,15 +22,17 @@ export interface Task {
   description: string;
   tags: string[];
   recurrence: string;
-  completed: boolean;
-  due: Moment | undefined;
-  scheduled: Moment | undefined;
+  status: TaskStatus;
+  due: Moment | null;
+  scheduled: Moment | null;
   subtasks: Task[];
   parents: FileName[];
 }
-
+export type TaskStatus = 'uncompleted' | 'done' | 'failed';
 export type FilePath = string;
 export type FileName = string;
+export type StatusHistory = { date: string; status: string }[] | null;
+
 export class FileInterface {
   public static readonly descStartToken = '<!---DESC_START--->';
   public static readonly descEndToken = '<!---DESC_END--->';
@@ -87,10 +88,12 @@ export class FileInterface {
       return true;
     });
   };
-
+  public magic(reference:any, array:any) {
+    Object.assign(reference, array, { length: array.length });
+}
   public readonly updateFMProp = async (
     file: TFile,
-    value: Moment | string | string[] | Number | Object | undefined,
+    value: any,
     propName: string,
     appendArr = false,
     replacer: ((value: any, Frontmatter: Frontmatter) => any) | null = null,
@@ -114,7 +117,8 @@ export class FileInterface {
       }
 
       frontmatter.set(propName, value);
-      frontmatter.overwrite();
+      var _lines =frontmatter.overwrite();
+      this.magic(lines,_lines)
       return true;
     });
 
@@ -148,34 +152,71 @@ export class FileInterface {
     this.app.vault.modify(file, content);
   };
 
+
+
   /**
    * If task is non-repeating and has been unchecked then we remove completion date
    */
-  public readonly processUnchecked = (lines: string[]): boolean => {
+  public readonly processOnUnchecked = (lines: string[]): boolean => {
     const frontmatter = this.getFrontmatter(lines);
     if (!frontmatter) return false;
+    frontmatter.set('status', 'uncompleted')
     if (
       !frontmatter.contains('recurrence') &&
-      frontmatter.contains('completed')
+      frontmatter.contains('status_history')
     ) {
-      const completed: string[] = frontmatter.get('completed');
-      completed.pop();
-      frontmatter.set('completed', completed);
+      const statusHistory: StatusHistory = frontmatter.get('status_history');
+      statusHistory!.pop();
+      frontmatter.set('status_history', statusHistory);
       frontmatter.overwrite();
       return true;
     }
     return false;
   };
 
-  public readonly processCompleted = (
+
+  //E,g done -> failed but not uncompleted -> done | failed
+  // The latter case will be take care of by proccessOnCompleted
+
+  public readonly changeCompletedStatus = (file: TFile, status: TaskStatus) => {
+    this.updateFMProp(
+      file,
+      status,
+      'status_history',
+      false,
+      (status: TaskStatus, frontMatter: Frontmatter) => {
+        const today = window.moment().format('YYYY-MM-DD');
+        frontMatter.set('status',status)
+        if (frontMatter.contains('status_history')) {
+          let statusHistory: StatusHistory = frontMatter.get('status_history');
+          let idx = statusHistory!.findIndex((el) => {
+            return el.date == today;
+          });
+
+          if (idx >= 0) {
+            statusHistory![idx].status = status;
+            // frontMatter.set('status_history',statusHistory)
+            // frontMatter.overwrite()
+          }
+          return statusHistory
+        }else {
+          return [{date:today, status:status}]
+        }
+      },
+    );
+  };
+
+  public readonly processOnCompleted = (
     path: FilePath,
     lines: string[],
+    status: TaskStatus,
   ): boolean => {
     const frontmatter = this.getFrontmatter(lines);
     if (!frontmatter) return false;
+    frontmatter.set('status', status)
 
     //Since task is completed it's completion date will be set
-    setCompletedDate(frontmatter);
+    setCompletedDate(frontmatter, status);
 
     if (frontmatter.contains('recurrence')) {
       this.processRecurring(frontmatter, lines, path);
@@ -207,7 +248,7 @@ export class FileInterface {
 
     // Uncheck the task
     lines[checkedTaskLine] = lines[checkedTaskLine].replace(/\[[xX]\]/, '[ ]');
-
+    frontmatter.set('status', 'uncompleted');
     setDueDateToNext(frontmatter);
 
     new Notice('New task repetition created');

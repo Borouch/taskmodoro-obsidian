@@ -4,6 +4,7 @@
 </script>
 
 <div
+  on:click
   on:mouseenter={() => {
     isSelected = true;
   }}
