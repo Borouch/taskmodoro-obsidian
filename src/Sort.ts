@@ -25,10 +25,9 @@ export class Sort {
     ): fileInterface.Task[] {
         const defaultComparators: Comparator[] = [
             // Sort.compareByUrgency,
-            Sort.compareByCompleted,
-            Sort.compareByDueDate,
+            // Sort.compareByStatus,
+            // Sort.compareByDueDate,
             // Sort.compareByPriority,
-            Sort.compareByPath,
         ];
 
         const userComparators: Comparator[] = [];
@@ -60,7 +59,7 @@ export class Sort {
         due: Sort.compareByDueDate,
         // done: Sort.compareByDoneDate,
         // path: Sort.compareByPath,
-        completed: Sort.compareByCompleted,
+        status: Sort.compareByStatus,
         tag: Sort.compareByTag,
     };
 
@@ -87,16 +86,11 @@ export class Sort {
     //     return b.urgency - a.urgency;
     // }
 
-    private static compareByCompleted(
+    private static compareByStatus(
         a: fileInterface.Task,
         b: fileInterface.Task,
     ): -1 | 0 | 1 {
-        if (a.completed && !b.completed) {
-            return 1;
-        } else if (!a.completed && b.completed) {
-            return -1;
-        }
-        return 0;
+        return a.status.localeCompare(b.status) as -1 | 0 | 1
     }
 
     // private static compareByPriority(a: fileInterface.Task, b: fileInterface.Task): number {
@@ -187,17 +181,6 @@ export class Sort {
         return 0;
     }
 
-    private static compareByPath(
-        a: fileInterface.Task,
-        b: fileInterface.Task,
-    ): -1 | 0 | 1 {
-        if (a.file.path < b.file.path) {
-            return -1;
-        } else if (a.file.path > b.file.path) {
-            return 1;
-        }
-        return 0;
-    }
 
     /**
      * Compare the description by how it is rendered in markdown.

@@ -79,23 +79,24 @@ Or for a more complicated example:
 
 ### Query syntax
 
-| Filters                                                                                | Sort                                        | Group               |
-|----------------------------------------------------------------------------------------|---------------------------------------------|---------------------|
-| completed, not completed                                                               | sort by completed                           | group by completed  |
-| scheduled (before, after, on) &lt;date&gt;has scheduled date, no scheduled date          | sort by scheduled                           | group by scheduled  |
-| due (before, after, on) &lt;date&gt;has due date, no due date                            | sort by due                                 | group by due        |
-| is recurring, is not recurring                                                         | &nbsp;                                      | group by recurring  |
-| &nbsp;                                                                                 | &nbsp;                                      | group by recurrence |
-| description (includes, does not include) &lt;string&gt;                                | sort by description                         | &nbsp;              |
-| tag (includes, does not include) &lt;tag&gt;tags (include, do not include) &lt;tag&gt; | sort by tag, sort by tag &lt;tag_number&gt; | group by tags       |
-| (filter 1) AND (filter 2)                                                              | &nbsp;                                      | &nbsp;              |
-| (filter 1) OR (filter 2)                                                               | &nbsp;                                      | &nbsp;              |
-| NOT (filter 1)                                                                         | &nbsp;                                      | &nbsp;              |
-| (filter 1) XOR (filter 2)                                                              | &nbsp;                                      | &nbsp;              |
-| (filter 1) AND NOT (filter 2)                                                          | &nbsp;                                      | &nbsp;              |
-| (filter 1) OR NOT (filter 2)                                                           | &nbsp;                                      | &nbsp;              |
-| (filter 1) AND ((filter 2) OR (filter 3))                                              | &nbsp;                                      | &nbsp;              |
-| exclude subtasks                                                                       | &nbsp;                                      | &nbsp;              |
+
+|  Sort                                                                                      |  Group                                        |                       |
+|:-------------------------------------------------------------------------------------------|:----------------------------------------------|:----------------------|
+|  completed, not completed. done, not done, failed, not failed                              |  sort by status                               |  group by status      |
+|  scheduled (before, after, on) &lt;date&gt;has scheduled date, no scheduled date           |  sort by scheduled                            |  group by scheduled   |
+|  due (before, after, on) &lt;date&gt;has due date, no due date                             |  sort by due                                  |  group by due         |
+|  is recurring, is not recurring                                                            |  &nbsp;                                       |  group by recurring   |
+|  &nbsp;                                                                                    |  &nbsp;                                       |  group by recurrence  |
+|  description (includes, does not include) &lt;string&gt;                                   |  sort by description                          |  &nbsp;               |
+|  tag (includes, does not include) &lt;tag&gt;tags (include, do not include) &lt;tag&gt;    |  sort by tag, sort by tag &lt;tag_number&gt;  |  group by tags        |
+|  (filter 1) AND (filter 2)                                                                 |  &nbsp;                                       |  &nbsp;               |
+|  (filter 1) OR (filter 2)                                                                  |  &nbsp;                                       |  &nbsp;               |
+|  NOT (filter 1)                                                                            |  &nbsp;                                       |  &nbsp;               |
+|  (filter 1) XOR (filter 2)                                                                 |  &nbsp;                                       |  &nbsp;               |
+|  (filter 1) AND NOT (filter 2)                                                             |  &nbsp;                                       |  &nbsp;               |
+|  (filter 1) OR NOT (filter 2)                                                              |  &nbsp;                                       |  &nbsp;               |
+|  (filter 1) AND ((filter 2) OR (filter 3))                                                 |  &nbsp;                                       |  &nbsp;               |
+|  exclude subtasks                                                                          |  &nbsp;                                       |  &nbsp;               |  
 
 ### Limitations
 Task creation and details modal view is not yet supported on mobile.
