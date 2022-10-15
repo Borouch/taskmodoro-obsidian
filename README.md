@@ -80,7 +80,8 @@ Or for a more complicated example:
 ### Query syntax
 
 
-|  Sort                                                                                      |  Group                                        |                       |
+
+|  Filter                                                                                    |  Sort                                         | Group                 |
 |:-------------------------------------------------------------------------------------------|:----------------------------------------------|:----------------------|
 |  completed, not completed. done, not done, failed, not failed                              |  sort by status                               |  group by status      |
 |  scheduled (before, after, on) &lt;date&gt;has scheduled date, no scheduled date           |  sort by scheduled                            |  group by scheduled   |
