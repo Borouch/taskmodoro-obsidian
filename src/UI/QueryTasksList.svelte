@@ -13,7 +13,7 @@
   // } from './../Stores/StatusContextMenu';
   // import { checkMark, close } from '../Graphics';
   // import MenuItem from './MenuItem.svelte';
-  import ContextMenu from './TaskStatusMenu.svelte';
+  import TaskStatusMenu from './TaskStatusMenu.svelte';
   export let plugin: TQPlugin;
   export let query: Query;
   let queryTaskListEl: HTMLElement;
@@ -46,13 +46,9 @@
   //   // showCtxMenu = false
   // });
 
-
-
   onDestroy(() => {
     unsubscribeTasksCache();
   });
-
-
 </script>
 
 <div class="taskmodoro">
@@ -68,19 +64,16 @@
         />
       {/each}
     {/each}
-    <ContextMenu relativeEl={queryTaskListEl}></ContextMenu>
+
+    <TaskStatusMenu relativeEl={queryTaskListEl} />
   </div>
 </div>
 
 <style>
-
-
   .query-tasks-list {
     position: relative;
   }
-  :global(.main-task-panel){
-    position:relative;
+  :global(.main-task-panel) {
+    position: relative;
   }
-
-
 </style>

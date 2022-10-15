@@ -11,8 +11,6 @@ import {
 import { Frontmatter, Parser } from '../Parser';
 
 import type TQPlugin from '../main';
-import type { TaskDetails } from '../TaskDetails';
-import { statusStringToEnumMapper } from '../Helpers/Helpers';
 
 /**
  * TaskCache is the main interface for querying and modifying tasks. It

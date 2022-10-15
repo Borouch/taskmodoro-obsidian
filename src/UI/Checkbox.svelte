@@ -9,9 +9,8 @@
   import { playMp3 } from '../Helpers/Helpers';
   import {
     statusCtxMenuAbsPos,
-     ctxMenuTd,
+    ctxMenuTd,
   } from './../Stores/StatusContextMenu';
-
 
   function toggle() {
     if (!disabled) {
@@ -22,7 +21,7 @@
         td.status = 'uncompleted';
       }
       if (td.file) {
-        td.plugin.taskCache.toggleCompletionStatusChange(td.file,td.status);
+        td.plugin.taskCache.toggleCompletionStatusChange(td.file, td.status);
       }
     }
   }
@@ -37,21 +36,23 @@
   };
 </script>
 
-<div
-  class="checkbox-circle {disabled ? 'checkbox--disabled' : ''}"
-  on:click={toggle}
-  on:contextmenu={onContextMenu}
->
-  {#if td.status === 'done'}
-    <div class="check-mark-wrapper">
-      {@html checkMark}
-    </div>
-  {/if}
-  {#if td.status === 'failed'}
-    <div class="close-wrapper">
-      {@html close}
-    </div>
-  {/if}
+<div class="checkbox-wrapper">
+  <div
+    class="checkbox-circle {disabled ? 'checkbox--disabled' : ''}"
+    on:click={toggle}
+    on:contextmenu={onContextMenu}
+  >
+    {#if td.status === 'done'}
+      <div class="check-mark-wrapper">
+        {@html checkMark}
+      </div>
+    {/if}
+    {#if td.status === 'failed'}
+      <div class="close-wrapper">
+        {@html close}
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -107,7 +108,6 @@
     margin-top: -8px;
   }
 
-
   :global(.query-tasks-list .checkbox-circle, .timer-task-container
       .checkbox-circle) {
     width: 20px;
@@ -116,7 +116,7 @@
   }
 
   :global(.main-task-panel .subtask-section .close-wrapper) {
-    margin-top: -6px ;
+    margin-top: -6px;
   }
 
   :global(.main-task-panel .check-mark-icon) {

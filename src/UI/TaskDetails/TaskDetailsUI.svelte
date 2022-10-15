@@ -20,7 +20,7 @@
 
   // Either gets last navigation task or a new one is created
   const getTd = (tasks: Record<string, Task>, tasksNav: FilePath[]) => {
-    let currTask: FilePath = tasksNav.last();
+    let currTask: FilePath|undefined = tasksNav.last();
 
     if (currTask) {
       td = new TaskDetails(plugin, tasks[currTask],close);

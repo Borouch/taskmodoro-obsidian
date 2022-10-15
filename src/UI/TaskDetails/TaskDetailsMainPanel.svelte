@@ -1,20 +1,22 @@
 <script lang="ts">
+  import { isClickOutsideTargets } from './../../Helpers/Helpers';
   import TaskDetailsNavigation from './TaskDetailsNavigation.svelte';
   import TaskDetailsSubtaskSection from './TaskDetailsSubtaskSection.svelte';
   import type { TaskDetails } from '../../TaskDetails';
   import { TaskDetailsMode } from '../../Enums/component-context';
   import Checkbox from '../Checkbox.svelte';
-  import { onMount, afterUpdate } from 'svelte';
+  import { onMount, afterUpdate, SvelteComponent } from 'svelte';
   import { renderMarkdown } from '../../Editor/RenderMarkdown';
   import Editor from '../Editor.svelte';
   import { allowOpenInternalLinks } from '../../Editor/InternalLink';
   import type { TFile } from 'obsidian';
 
-import TaskStatusMenu from '../TaskStatusMenu.svelte'
+  import TaskStatusMenu from '../TaskStatusMenu.svelte';
 
-  export let mainPanelEl: HTMLElement; 
   export let td: TaskDetails;
   export let mode: TaskDetailsMode;
+  let mainPanelEl: HTMLElement;
+
   let taskNameDraft = td.taskName;
   let descriptionDraft = td.description;
 
@@ -39,6 +41,9 @@ import TaskStatusMenu from '../TaskStatusMenu.svelte'
   const renderTaskNameMD = () => renderMD(taskNameDisplayEl, taskNameDraft);
 
   onMount(() => {
+    // const abortController = new AbortController();
+
+
     if (mode === TaskDetailsMode.Create) {
       isEditMode.taskName = true;
     } else {
@@ -139,7 +144,9 @@ import TaskStatusMenu from '../TaskStatusMenu.svelte'
     </div>
   </div>
   <TaskDetailsSubtaskSection bind:td {mode} />
-  <TaskStatusMenu relativeEl={mainPanelEl}></TaskStatusMenu>
+
+  <TaskStatusMenu  relativeEl={mainPanelEl} />
+
 </div>
 
 <style>
@@ -163,7 +170,7 @@ import TaskStatusMenu from '../TaskStatusMenu.svelte'
   }
 
   .main-task-panel {
-    position:relative;
+    position: relative;
     background-color: var(--main-panel-background);
     width: 70%;
     padding: 24px 24px;

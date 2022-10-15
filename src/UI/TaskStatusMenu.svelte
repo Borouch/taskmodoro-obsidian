@@ -2,14 +2,33 @@
   import type { TaskStatus } from '../FileInterface';
   import MenuItem from './MenuItem.svelte';
   import { checkMark, close } from '../Graphics';
-  import {
-    statusCtxMenuAbsPos,
-    ctxMenuTd,
-  } from '../Stores/StatusContextMenu';
+  import { statusCtxMenuAbsPos, ctxMenuTd } from '../Stores/StatusContextMenu';
+  import { onMount } from 'svelte';
+  import { isClickOutsideTargets } from '../Helpers/Helpers';
 
   export let relativeEl: HTMLElement;
+  let showTaskCtxMenu: boolean;
   let statusCtxMenuRelPos: { x: Number; y: Number };
-  let showCtxMenu = false;
+  let taskStatusMenuEl: HTMLElement;
+  onMount(() => {});
+
+  $: {
+    handleClickOutside(showTaskCtxMenu);
+  }
+
+  const handleClickOutside = (_showTaskCtxMenu: boolean) => {
+    if (_showTaskCtxMenu) {
+      document.addEventListener('click', closeIfClickOutsideCallback);
+    } else {
+      console.log('listener removed');
+      document.removeEventListener('click', closeIfClickOutsideCallback);
+    }
+  };
+
+  const closeIfClickOutsideCallback = (e: Event) => {
+    const isClickOutside = isClickOutsideTargets(e, [taskStatusMenuEl]);
+    showTaskCtxMenu = !isClickOutside;
+  };
 
   const setStatus = (status: TaskStatus) => {
     if ($ctxMenuTd.file) {
@@ -26,7 +45,7 @@
       }
     }
     $ctxMenuTd.status = status;
-    showCtxMenu = false;
+    showTaskCtxMenu = false;
   };
 
   statusCtxMenuAbsPos.subscribe((absPos: { x: number; y: number } | null) => {
@@ -37,16 +56,17 @@
       const yRel = absPos.y - rect.top + 15;
       statusCtxMenuRelPos = { x: xRel, y: yRel };
       // statusCtxMenuRelPos = { x: xRel, y: yRel };
-      showCtxMenu = true;
+      showTaskCtxMenu = true;
     } else {
-      showCtxMenu = false;
+      showTaskCtxMenu = false;
     }
   });
 </script>
 
-{#if showCtxMenu}
+{#if showTaskCtxMenu}
   <div
-    class="menu"
+    bind:this={taskStatusMenuEl}
+    class="task-status-menu menu"
     style={`top: ${statusCtxMenuRelPos.y}px; left: ${statusCtxMenuRelPos.x}px; `}
   >
     <MenuItem
