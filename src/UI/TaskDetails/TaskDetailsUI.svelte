@@ -15,11 +15,11 @@
   let tasksNav: Writable<FilePath[]> = plugin.taskNav.tasksNavigation;
 
   $: {
-    getTaskNavTd($tasksCache, $tasksNav);
+    getTd($tasksCache, $tasksNav);
   }
 
   // Either gets last navigation task or a new one is created
-  const getTaskNavTd = (tasks: Record<string, Task>, tasksNav: FilePath[]) => {
+  const getTd = (tasks: Record<string, Task>, tasksNav: FilePath[]) => {
     let currTask: FilePath = tasksNav.last();
 
     if (currTask) {

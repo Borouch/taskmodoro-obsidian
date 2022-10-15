@@ -54,7 +54,7 @@
     justify-content: center;
     align-items: center;
     width: 24px;
-    padding-bottom: 4px;
+    /* padding-bottom: 4px; */
     padding-right: 8px;
     height: 16px;
   }

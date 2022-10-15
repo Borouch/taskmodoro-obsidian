@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TaskStatus } from './../Enums/TaskStatus.ts';
+  // import { TaskStatus } from './../Enums/TaskStatus.ts';
   import type TQPlugin from '../main';
   import TaskTile from './TaskTile/TaskTile.svelte';
   import { TaskListTileParent } from '../Enums/component-context';
@@ -7,15 +7,16 @@
   import type { Query } from '../Query';
   import { onDestroy } from 'svelte';
   import type { TaskGroup } from '../Query/TaskGroup';
-  import {
-    statusCtxMenuAbsPos,
-    ctxMenuTd,
-  } from './../Stores/StatusContextMenu';
-  import { checkMark, close } from '../Graphics';
-  import MenuItem from './MenuItem.svelte';
+  // import {
+  //   statusCtxMenuAbsPos,
+  //   ctxMenuTd,
+  // } from './../Stores/StatusContextMenu';
+  // import { checkMark, close } from '../Graphics';
+  // import MenuItem from './MenuItem.svelte';
+  import ContextMenu from './TaskStatusMenu.svelte';
   export let plugin: TQPlugin;
   export let query: Query;
-  let queryTaskListEl: HTMLDivElement;
+  let queryTaskListEl: HTMLElement;
 
   const getHeading = (level: number, name: string) => {
     level = level + 4;
@@ -23,8 +24,8 @@
     return `<h${level}>${name}</h${level}>`;
   };
 
-  let statusCtxMenuRelPos: { x: Number; y: Number };
-  let showCtxMenu = false;
+  // let statusCtxMenuRelPos: { x: Number; y: Number };
+  // let showCtxMenu = false;
 
   let taskGroups: TaskGroup[] = [];
 
@@ -41,45 +42,17 @@
     },
   );
 
-  ctxMenuTd.subscribe((_td: TaskDetails) => {
-    // showCtxMenu = false
-  });
+  // ctxMenuTd.subscribe((_td: TaskDetails) => {
+  //   // showCtxMenu = false
+  // });
 
-  statusCtxMenuAbsPos.subscribe((absPos: { x: number; y: number } | null) => {
-    console.log({ absPos });
-    if (absPos && queryTaskListEl) {
-      var rect = queryTaskListEl.getBoundingClientRect();
-      const xRel = absPos.x - rect.left - 10;
-      const yRel = absPos.y - rect.top + 15;
-      statusCtxMenuRelPos = { x: xRel, y: yRel };
-      // statusCtxMenuRelPos = { x: xRel, y: yRel };
-      showCtxMenu = true;
-    } else {
-      showCtxMenu = false;
-    }
-  });
+
 
   onDestroy(() => {
     unsubscribeTasksCache();
   });
 
-  const setStatus = (status: TaskStatus) => {
-    if ($ctxMenuTd.file) {
-      if ($ctxMenuTd.status === 'uncompleted' || status === 'uncompleted') {
-        $ctxMenuTd.plugin.taskCache.toggleCompletionStatusChange(
-          $ctxMenuTd.file,
-          status,
-        );
-      } else {
-        $ctxMenuTd.plugin.fileInterface.changeCompletedStatus(
-          $ctxMenuTd.file,
-          status,
-        );
-      }
-    }
-    $ctxMenuTd.status = status;
-    showCtxMenu = false;
-  };
+
 </script>
 
 <div class="taskmodoro">
@@ -95,30 +68,7 @@
         />
       {/each}
     {/each}
-    {#if showCtxMenu}
-      <div
-        class="menu"
-        style={`top: ${statusCtxMenuRelPos.y}px; left: ${statusCtxMenuRelPos.x}px; `}
-      >
-        <MenuItem
-          on:click={() => {
-            setStatus('done');
-          }}
-          title="Done"
-        >
-          {@html checkMark}
-        </MenuItem>
-
-        <MenuItem
-          on:click={() => {
-            setStatus('failed');
-          }}
-          title="Failed"
-        >
-          {@html close}
-        </MenuItem>
-      </div>
-    {/if}
+    <ContextMenu relativeEl={queryTaskListEl}></ContextMenu>
   </div>
 </div>
 
@@ -132,11 +82,5 @@
     position:relative;
   }
 
-  .menu {
-    z-index: 5;
-    position: absolute;
-    /* background-color: red;
-    width: 50px;
-    height: 50px; */
-  }
+
 </style>

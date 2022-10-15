@@ -10,13 +10,16 @@
   import { allowOpenInternalLinks } from '../../Editor/InternalLink';
   import type { TFile } from 'obsidian';
 
+import TaskStatusMenu from '../TaskStatusMenu.svelte'
+
+  export let mainPanelEl: HTMLElement; 
   export let td: TaskDetails;
   export let mode: TaskDetailsMode;
   let taskNameDraft = td.taskName;
   let descriptionDraft = td.description;
 
   $: {
-    updateDrafts(td.file);
+    updateDrafts(td.file!);
   }
 
   // Update drafts if a task with different file is pushed to the task details modal
@@ -61,7 +64,7 @@
     const path = td.file ? td.file.path : '/';
     renderMarkdown(td.plugin, path, MD).then((temp) => {
       el.innerHTML = temp.innerHTML;
-      allowOpenInternalLinks(el, td.plugin, td.close);
+      allowOpenInternalLinks(el, td.plugin, td.close!);
     });
   };
 
@@ -69,14 +72,14 @@
     if (td.taskName !== taskNameDraft) {
       td.taskName = taskNameDraft;
       if (mode === TaskDetailsMode.Update) {
-        td.plugin.fileInterface.updateTaskName(td.file, td.taskName);
+        td.plugin.fileInterface.updateTaskName(td.file!, td.taskName);
       }
     }
 
     if (td.description !== descriptionDraft) {
       td.description = descriptionDraft;
       if (mode === TaskDetailsMode.Update) {
-        td.plugin.fileInterface.updateDescription(td.file, td.description);
+        td.plugin.fileInterface.updateDescription(td.file!, td.description);
       }
     }
   };
@@ -100,7 +103,7 @@
   };
 </script>
 
-<div class="main-task-panel">
+<div bind:this={mainPanelEl} class="main-task-panel">
   <TaskDetailsNavigation plugin={td.plugin} />
   <div class="task-container">
     <div class="tq__checkbox-wrapper">
@@ -136,6 +139,7 @@
     </div>
   </div>
   <TaskDetailsSubtaskSection bind:td {mode} />
+  <TaskStatusMenu relativeEl={mainPanelEl}></TaskStatusMenu>
 </div>
 
 <style>
@@ -159,6 +163,7 @@
   }
 
   .main-task-panel {
+    position:relative;
     background-color: var(--main-panel-background);
     width: 70%;
     padding: 24px 24px;

@@ -104,8 +104,9 @@
   }
 
   :global(.query-tasks-list .close-wrapper) {
-    margin-top: -6px;
+    margin-top: -8px;
   }
+
 
   :global(.query-tasks-list .checkbox-circle, .timer-task-container
       .checkbox-circle) {
@@ -114,8 +115,18 @@
     border: 1.5px solid var(--checkbox-border);
   }
 
+  :global(.main-task-panel .subtask-section .close-wrapper) {
+    margin-top: -6px ;
+  }
+
   :global(.main-task-panel .check-mark-icon) {
-    width: 10px;
+    width: 12px;
+    height: auto;
+    stroke-width: 7%;
+  }
+
+  :global(.main-task-panel .close-icon) {
+    width: 8px;
     height: auto;
     stroke-width: 7%;
   }
