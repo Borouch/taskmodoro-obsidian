@@ -20,7 +20,6 @@
     if (_showTaskCtxMenu) {
       document.addEventListener('click', closeIfClickOutsideCallback);
     } else {
-      console.log('listener removed');
       document.removeEventListener('click', closeIfClickOutsideCallback);
     }
   };

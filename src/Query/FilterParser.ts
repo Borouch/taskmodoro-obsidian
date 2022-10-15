@@ -1,5 +1,5 @@
 import { BooleanField } from './Filter/BooleanField';
-import { CompletedField } from './Filter/CompletedField';
+import { StatusField } from './Filter/StatusField';
 import { DescriptionField } from './Filter/DescriptionField';
 import { DoneDateField } from './Filter/DoneDateField';
 import { DueDateField } from './Filter/DueDateField';
@@ -17,7 +17,7 @@ import { TagsField } from './Filter/TagsField';
 // Reproduced from: https://github.com/obsidian-tasks-group/obsidian-tasks
 
 const fieldCreators = [
-    () => new CompletedField(),
+    () => new StatusField(),
     () => new RecurringField(),
     // () => new PriorityField(),
     // () => new HappensDateField(),
@@ -25,10 +25,8 @@ const fieldCreators = [
     () => new ScheduledDateField(),
     () => new DueDateField(),
     // () => new DoneDateField(),
-    // () => new PathField(),
     () => new DescriptionField(),
     () => new TagsField(),
-    // () => new HeadingField(),
     () => new ExcludeSubtasksField(),
     () => new BooleanField(),
 ];
