@@ -270,6 +270,7 @@ export class FileInterface {
     const currTaskPath = await this.storeNewTask(
       td.taskName,
       td.description,
+      td.status,
       td.pomodoroLenght,
       td.estWorktime,
       td.dailyScheduledWorktime,
@@ -296,6 +297,7 @@ export class FileInterface {
   public readonly storeNewTask = async (
     taskName: string,
     description: string,
+    status: TaskStatus,
     pomoDuration: Duration,
     estWorktime: Duration,
     dailyScheduledWorktime: Duration,
@@ -311,6 +313,7 @@ export class FileInterface {
     const data = this.formatNewTask(
       taskName,
       description,
+      status,
       pomoDuration,
       estWorktime,
       dailyScheduledWorktime,
@@ -353,6 +356,7 @@ export class FileInterface {
   private readonly formatNewTask = (
     taskName: string,
     description: string,
+    status: TaskStatus,
     pomoDuration: Duration,
     estWorktime: Duration,
     dailyScheduledWorktime: Duration,
@@ -381,6 +385,16 @@ export class FileInterface {
       const now = window.moment().format('YYYY-MM-DD');
       const prop = `  '${now}':\n    minutes: ${dailyScheduledWorktime.asMinutes()}`;
       frontMatter.push(`daily_scheduled_worktime:\n${prop}`);
+    }
+
+    if (status){
+      frontMatter.push(`status: ${status}`)
+      if(status !== 'uncompleted'){
+        const date= moment().format('YYYY-MM-dd')
+        frontMatter.push(`status_history:\n  -${date}\n${status}`)
+      }
+    }else {
+      frontMatter.push(`status: uncompleted`)
     }
 
     if (due) {

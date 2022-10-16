@@ -17,7 +17,7 @@
   type Moment = moment.Moment;
   import { renderMarkdown } from '../../Editor/RenderMarkdown';
   import { preventModalOpenOnInternalLinksClick } from '../../Editor/InternalLink';
-
+  export let mode: TaskDetailsMode | null = null;
   export let parentComponent: TaskListTileParent;
   export let td: TaskDetails;
 
@@ -83,15 +83,17 @@
   };
 
   /**
-  * Construct task navigation path by appending tasks branch until the target task as last leaf
-  */
+   * Construct task navigation path by appending tasks branch until the target task as last leaf
+   */
   const constructNavPath = (task: Task, insertIdx: number): boolean => {
     // If current branch task node has a subtask that matches the target task
     // add target task as last navigation path leaf and return true to indicate that navigation path has been found
-    // While traversing backwards insert tasks to the navigation path 
-    
-    const targetTask = td
-    let idx = task.subtasks.findIndex((st) => st.file.path === targetTask.file.path);
+    // While traversing backwards insert tasks to the navigation path
+
+    const targetTask = td;
+    let idx = task.subtasks.findIndex(
+      (st) => st.file.path === targetTask.file.path,
+    );
     if (idx >= 0) {
       $tasksNav.push(targetTask.file.path);
       return true;
@@ -108,7 +110,7 @@
     }
   };
 
-  const handleTaskNavPath = (taskFilePath: FilePath)=>{
+  const handleTaskNavPath = (taskFilePath: FilePath) => {
     const lastTaskNavFilePath = $tasksNav.last();
     let lastTaskNavTask = $taskCache[lastTaskNavFilePath!];
     if (lastTaskNavTask) {
@@ -117,12 +119,12 @@
       $tasksNav.push(taskFilePath);
     }
     $tasksNav = [...$tasksNav];
-  }
+  };
 
   const openTaskDetails = (taskFilePath = td.file.path) => {
     if (!canOpenModal) return;
 
-    handleTaskNavPath(taskFilePath)
+    handleTaskNavPath(taskFilePath);
 
     //We open new modal only if there were previously no tasks in task navigation
     if ($tasksNav.length == 1) {
@@ -148,7 +150,7 @@
       <span class="leading">
         <SubtasksExpansionBtn {showExpansionBtn} bind:expanded />
 
-        <Checkbox bind:td />
+        <Checkbox disabled={mode==TaskDetailsMode.Create} bind:td />
       </span>
       <div class="header-content">
         {#if parentTask}
@@ -242,7 +244,7 @@
     margin-top: 8px;
   }
 
-  :global(.query-tasks-list .task-parent-title )  {
+  :global(.query-tasks-list .task-parent-title) {
     display: block;
     font-size: 0.75rem;
     margin: 0 8px;
@@ -250,7 +252,7 @@
     color: var(--text-faint);
   }
 
-  :global(.query-tasks-list .nested-subtasks-list .task-parent-title )  {
+  :global(.query-tasks-list .nested-subtasks-list .task-parent-title) {
     display: none;
   }
 

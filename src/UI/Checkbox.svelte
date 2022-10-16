@@ -31,6 +31,7 @@
   // }
 
   const onContextMenu = (event: MouseEvent) => {
+    if(disabled) return;
     $statusCtxMenuAbsPos = { x: event.clientX, y: event.clientY };
     $ctxMenuTd = td;
   };

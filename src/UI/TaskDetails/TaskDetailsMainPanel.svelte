@@ -112,7 +112,7 @@
   <TaskDetailsNavigation plugin={td.plugin} />
   <div class="task-container">
     <div class="tq__checkbox-wrapper">
-      <Checkbox bind:td disabled={false} />
+      <Checkbox bind:td disabled={mode==TaskDetailsMode.Create} />
     </div>
     <div class="task-input__container ">
       <Editor
@@ -143,7 +143,7 @@
       />
     </div>
   </div>
-  <TaskDetailsSubtaskSection bind:td {mode} />
+  <TaskDetailsSubtaskSection  bind:td {mode} />
 
   <TaskStatusMenu  relativeEl={mainPanelEl} />
 

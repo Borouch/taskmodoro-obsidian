@@ -53,13 +53,13 @@
   const updateParentChildTaskFm = (subtaskFile: TFile) => {
     td.plugin.fileInterface.updateFMProp(
       subtaskFile,
-      td.file.name,
+      td.file!.name,
       'parents',
       true,
     );
 
     td.plugin.fileInterface.updateFMProp(
-      td.file,
+      td.file!,
       subtaskFile.name,
       'subtasks',
       true,
@@ -74,7 +74,7 @@
     const path = td.file ? td.file.path : '/';
     renderMarkdown(td.plugin, path, MD).then((temp) => {
       el.innerHTML = temp.innerHTML;
-      allowOpenInternalLinks(el, td.plugin, td.close);
+      allowOpenInternalLinks(el, td.plugin, td.close!);
     });
   };
 </script>
@@ -108,6 +108,7 @@
       <div class="subtasks-list">
         {#each td.subtasks as subtask (subtask.taskName)}
           <TaskTile
+            {mode}
             parentComponent={TaskTileParent.TaskDetailsMainPanel}
             bind:td={subtask}
           />

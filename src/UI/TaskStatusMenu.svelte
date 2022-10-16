@@ -48,7 +48,7 @@
   };
 
   statusCtxMenuAbsPos.subscribe((absPos: { x: number; y: number } | null) => {
-    console.log({ absPos });
+
     if (absPos && relativeEl) {
       var rect = relativeEl.getBoundingClientRect();
       const xRel = absPos.x - rect.left - 10;
