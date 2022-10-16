@@ -1,5 +1,5 @@
 <script lang="ts">
-	import OptionsBtn from './../OptionsBtn.svelte';
+  import OptionsBtn from './../OptionsBtn.svelte';
   import type { TaskDetails } from '../../TaskDetails';
   import { TaskDetailsMode } from '../../Enums/component-context';
 
@@ -22,7 +22,7 @@
   import TaskDetailsSidebarProp from './TaskDetailsSidebarProp.svelte';
   import moment from 'moment';
   import type { Frontmatter } from '../../Parser';
-  import DeleteTaskBtn from './../DeleteTaskBtn.svelte';
+  import OptionsMenu from './../OptionsMenu.svelte';
   export let td: TaskDetails;
   export let mode: TaskDetailsMode;
 
@@ -119,9 +119,11 @@
       td.plugin.fileInterface.updateFMProp(td.file!, undefined, 'due');
     }
   };
+
+  let sidePaneEl: HTMLElement;
 </script>
 
-<div class="task-details__side-panel">
+<div bind:this={sidePaneEl} class="task-details__side-panel">
   <span class="side-panel__external-actions-container">
     {#if mode !== TaskDetailsMode.Create}
       <TimerOpenBtn on:click={showPomodoroTaskView} />
@@ -129,15 +131,14 @@
     {#if mode === TaskDetailsMode.Update}
       <!-- <DeleteTaskBtn {td} /> -->
       <ViewSourceBtn
-      file={td.file}
-      classes="external-link-wrapper"
-      plugin={td.plugin}
-      close={td.close}
-    />
-    <div class="flex-spacer"></div>
-        <OptionsBtn></OptionsBtn>
+        file={td.file}
+        classes="external-link-wrapper"
+        plugin={td.plugin}
+        close={td.close}
+      />
+      <div class="flex-spacer" />
+      <OptionsBtn {td} />
     {/if}
-
   </span>
   <div class="side-panel__container">
     <TaskDetailsSidebarProp
@@ -216,12 +217,14 @@
       >
     </div>
   {/if}
+  <OptionsMenu relativeEl={sidePaneEl} />
 </div>
 
 <style>
-  .flex-spacer{
+  .flex-spacer {
     flex-grow: 1;
   }
+
   :global(.task-details__side-panel .tag-input) {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--input-border);
@@ -245,6 +248,7 @@
   }
 
   .task-details__side-panel {
+    position: relative;
     background-color: var(--side-panel-background);
     width: 30%;
     padding: 24px 24px;

@@ -10,3 +10,4 @@ export const optionsCtxMenuAbsPos: Writable<{ x: number; y: number }> =
 writable();
 
 export const ctxMenuTd: Writable<TaskDetails> = writable();
+export const clickTargets: Writable<HTMLElement[]> = writable([])

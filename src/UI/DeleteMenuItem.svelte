@@ -2,27 +2,26 @@
   import { bin } from './../Graphics';
   import type { TaskDetails } from '../TaskDetails';
   import { DeleteTaskModal } from './../Modals';
+  import MenuItem from './MenuItem.svelte';
   export let td: TaskDetails;
   const openDeleteTaskPopup = () => {
     new DeleteTaskModal(td).open();
   };
 </script>
 
-<div on:click={openDeleteTaskPopup} class="delete-icon-wrapper">
-  {@html bin}
-</div>
+<MenuItem on:click={openDeleteTaskPopup} title="Delete">
+  <div  class="delete-icon-wrapper">
+    {@html bin}
+  </div>
+</MenuItem>
 
 <style>
-  .delete-icon-wrapper {
-    display: flex;
-    justify-content: flex-end;
-  }
-  :global(.delete-icon) {
-    width: 20px;
+  :global(.menu-item-icon .delete-icon) {
+    width: 16px;
     height: auto;
   }
 
-  :global(.delete-icon path) {
-    fill: var(--secondary-action-item);
+  :global(.menu-item-icon .delete-icon path) {
+    fill: var(--text-faint);
   }
 </style>
