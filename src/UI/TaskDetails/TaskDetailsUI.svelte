@@ -4,9 +4,11 @@
   import type TQPlugin from '../../main';
   import type { FilePath, Task } from '../../FileInterface';
   import { TaskDetails } from '../../TaskDetails';
+
   import type { Writable } from 'svelte/store';
   import { TaskDetailsMode } from '../../Enums/component-context';
-
+  import { deletePopupCloseCallback } from './../../Stores/DeletePopup';
+  import { afterUpdate } from 'svelte';
   export let close: () => void;
   export let mode: TaskDetailsMode;
   export let plugin: TQPlugin;
@@ -18,14 +20,22 @@
     getTd($tasksCache, $tasksNav);
   }
 
+  deletePopupCloseCallback.subscribe((closeDeletePopup: (() => void)|null) => {
+    if(closeDeletePopup){
+      closeDeletePopup()
+      $deletePopupCloseCallback=null;
+      close()
+    }
+  });
+
   // Either gets last navigation task or a new one is created
   const getTd = (tasks: Record<string, Task>, tasksNav: FilePath[]) => {
-    let currTask: FilePath|undefined = tasksNav.last();
+    let currTask: FilePath | undefined = tasksNav.last();
 
     if (currTask) {
-      td = new TaskDetails(plugin, tasks[currTask],close);
+      td = new TaskDetails(plugin, tasks[currTask], close);
     } else {
-      td = new TaskDetails(plugin,undefined,close);
+      td = new TaskDetails(plugin, undefined, close);
     }
   };
 

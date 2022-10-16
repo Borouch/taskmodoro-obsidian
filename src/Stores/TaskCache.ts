@@ -31,7 +31,6 @@ export class TaskCache {
     this.app = app;
 
     this.tasks = writable({});
-
   }
 
   public readonly toggleCompletionStatusChange = async (
@@ -39,7 +38,6 @@ export class TaskCache {
     status: TaskStatus,
   ): Promise<void> =>
     modifyFileContents(file, this.app.vault, (lines): boolean => {
-      
       const replacer = status !== 'uncompleted' ? /^- \[[ ]\]/ : /^- \[[xX]\]/;
       const newValue = status !== 'uncompleted' ? '- [x]' : '- [ ]';
 
@@ -125,6 +123,18 @@ export class TaskCache {
 
   public readonly handleTaskDeleted = (path: string): void => {
     this.tasks.update((tasks): Record<FilePath, Task> => {
+      for (const parentName of tasks[path].parents) {
+        const dir = this.plugin.fileInterface.tasksDir;
+        const parentPath = `${dir}/${parentName}`;
+
+        const idx = tasks[parentPath].subtasks.findIndex(
+          (task) => task.file.name === tasks[path].file.name,
+        );
+        if(idx > -1) {
+          tasks[parentPath].subtasks.splice(idx,1)
+        }
+      }
+
       delete tasks[path];
 
       return tasks;

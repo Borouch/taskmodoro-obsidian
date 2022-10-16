@@ -19,17 +19,21 @@ export class DeleteTaskModal extends Modal {
   }
 
   public onOpen = (): void => {
-      const { contentEl, titleEl} = this;
-      
-      titleEl.innerText="Delete task?"
+      const { modalEl,contentEl, titleEl} = this;
+       modalEl.addClass('delete-popup')
+      titleEl.innerText="Are you sure you want to delete this task?"
       titleEl.addClass('delete-popup-title')
       new DeletePopup({
           target: contentEl,
           props: {
-              td: this.td
+              td: this.td,
+              close: () => this.close()
           },
       });
   };
+  public onClose(){
+
+  }
 
 }
 
