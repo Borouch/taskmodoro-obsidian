@@ -1,4 +1,5 @@
 <script lang="ts">
+	import OptionsBtn from './../OptionsBtn.svelte';
   import type { TaskDetails } from '../../TaskDetails';
   import { TaskDetailsMode } from '../../Enums/component-context';
 
@@ -21,7 +22,7 @@
   import TaskDetailsSidebarProp from './TaskDetailsSidebarProp.svelte';
   import moment from 'moment';
   import type { Frontmatter } from '../../Parser';
-
+  import DeleteTaskBtn from './../DeleteTaskBtn.svelte';
   export let td: TaskDetails;
   export let mode: TaskDetailsMode;
 
@@ -41,12 +42,12 @@
 
   const updateTagsFm = () => {
     if (mode == TaskDetailsMode.Update) {
-      td.plugin.fileInterface.updateFMProp(td.file, td.cleanedTags, 'tags');
+      td.plugin.fileInterface.updateFMProp(td.file!, td.cleanedTags, 'tags');
     }
   };
   const showPomodoroTaskView = async () => {
     await td.plugin.activatePomodoroTaskView(td);
-    td.close();
+    td.close!();
   };
 
   const updater = () => {
@@ -56,7 +57,7 @@
   const dailyScheduledWorktimeOnReset = () => {
     td.dailyScheduledWorktime = null;
 
-    const replacer = (value: any, frontmatter: Frontmatter) => {
+    const replacer = (_value: any, frontmatter: Frontmatter) => {
       const now = moment().format('YYYY-MM-DD');
       let dailyScheduledWorktime: { [key: string]: Object } = frontmatter.get(
         'daily_scheduled_worktime',
@@ -67,7 +68,7 @@
 
     if (mode === TaskDetailsMode.Update) {
       td.plugin.fileInterface.updateFMProp(
-        td.file,
+        td.file!,
         undefined,
         'daily_scheduled_worktime',
         false,
@@ -77,9 +78,13 @@
   };
 
   const estWorktimeOnReset = () => {
-    td.estWorktime = null;
+    td.estWorktime = undefined;
     if (mode === TaskDetailsMode.Update) {
-      td.plugin.fileInterface.updateFMProp(td.file, undefined, 'estimated_worktime');
+      td.plugin.fileInterface.updateFMProp(
+        td.file!,
+        undefined,
+        'estimated_worktime',
+      );
     }
   };
 
@@ -87,7 +92,7 @@
     td.pomodoroLenght = moment.duration(30, 'minutes');
     if (mode === TaskDetailsMode.Update) {
       td.plugin.fileInterface.updateFMProp(
-        td.file,
+        td.file!,
         { minutes: 30 },
         'pomodoro_length',
       );
@@ -97,21 +102,21 @@
   const recurrenceOnReset = () => {
     td.recurrence = '';
     if (mode === TaskDetailsMode.Update) {
-      td.plugin.fileInterface.updateFMProp(td.file, undefined, 'recurrence');
+      td.plugin.fileInterface.updateFMProp(td.file!, undefined, 'recurrence');
     }
   };
 
   const scheduledOnReset = () => {
     td.scheduled = '';
     if (mode === TaskDetailsMode.Update) {
-      td.plugin.fileInterface.updateFMProp(td.file, undefined, 'scheduled');
+      td.plugin.fileInterface.updateFMProp(td.file!, undefined, 'scheduled');
     }
   };
 
   const dueOnReset = () => {
     td.due = '';
     if (mode === TaskDetailsMode.Update) {
-      td.plugin.fileInterface.updateFMProp(td.file, undefined, 'due');
+      td.plugin.fileInterface.updateFMProp(td.file!, undefined, 'due');
     }
   };
 </script>
@@ -121,12 +126,18 @@
     {#if mode !== TaskDetailsMode.Create}
       <TimerOpenBtn on:click={showPomodoroTaskView} />
     {/if}
-    <ViewSourceBtn
+    {#if mode === TaskDetailsMode.Update}
+      <!-- <DeleteTaskBtn {td} /> -->
+      <ViewSourceBtn
       file={td.file}
       classes="external-link-wrapper"
       plugin={td.plugin}
       close={td.close}
     />
+    <div class="flex-spacer"></div>
+        <OptionsBtn></OptionsBtn>
+    {/if}
+
   </span>
   <div class="side-panel__container">
     <TaskDetailsSidebarProp
@@ -208,6 +219,9 @@
 </div>
 
 <style>
+  .flex-spacer{
+    flex-grow: 1;
+  }
   :global(.task-details__side-panel .tag-input) {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--input-border);
@@ -226,7 +240,8 @@
   .side-panel__external-actions-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 16px;
   }
 
   .task-details__side-panel {

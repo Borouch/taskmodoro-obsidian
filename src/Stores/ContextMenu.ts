@@ -6,4 +6,7 @@ import type { TaskDetails } from '../TaskDetails';
 export const statusCtxMenuAbsPos: Writable<{ x: number; y: number }> =
   writable();
 
+export const optionsCtxMenuAbsPos: Writable<{ x: number; y: number }> =
+writable();
+
 export const ctxMenuTd: Writable<TaskDetails> = writable();

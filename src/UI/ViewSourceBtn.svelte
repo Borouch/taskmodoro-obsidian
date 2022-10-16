@@ -22,9 +22,9 @@
 {/if}
 
 <style>
-  .external-link-wrapper {
+  /* .external-link-wrapper {
     padding-right: 44px;
-  }
+  } */
 
   :global(.external-link-icon) {
     stroke-width: 0px;

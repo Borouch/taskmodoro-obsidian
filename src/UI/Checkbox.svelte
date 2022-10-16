@@ -10,7 +10,7 @@
   import {
     statusCtxMenuAbsPos,
     ctxMenuTd,
-  } from './../Stores/StatusContextMenu';
+  } from '../Stores/ContextMenu';
 
   function toggle() {
     if (!disabled) {

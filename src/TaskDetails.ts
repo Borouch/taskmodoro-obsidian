@@ -33,7 +33,7 @@ export class TaskDetails {
   // Callback for closing TaskDetailsModal
   public close?: () => void;
 
-  public getWorktimeStr(worktime: Duration): string {
+  public getWorktimeStr(worktime: Duration | undefined): string {
     const estWorktimeStr =
       !worktime || worktime.asMinutes() === 0
         ? 'None'
